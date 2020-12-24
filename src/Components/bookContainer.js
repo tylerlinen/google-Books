@@ -7,6 +7,8 @@ function BookContainer() {
   const [apiKey, setApiKey] = useState(
     "AIzaSyBUSt-pAfV59egTuzz7n0GlgB3x3ghSX9k"
   );
+  const [likes, setLikes] = useState([]);
+  const likedSong = document.getElementsByClassName("book")
 
   function handleChange(event) {
     const book = event.target.value;
@@ -30,7 +32,9 @@ function BookContainer() {
       });
   }
   const likeBook = () => {
-    console.log("clicked");
+    console.log(result);
+    setLikes(result);
+    console.log(likes);
   };
 
   return (
@@ -64,7 +68,9 @@ function BookContainer() {
               Click to View
             </a>
           </button>
-          <button onClick={likeBook}>Click to Save</button>
+          <button className="likeBtn" onClick={likeBook}>
+            Click to Save
+          </button>
           <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.title} />
         </div>
       ))}

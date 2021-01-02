@@ -8,7 +8,26 @@ function BookContainer() {
     "AIzaSyBUSt-pAfV59egTuzz7n0GlgB3x3ghSX9k"
   );
   const [likes, setLikes] = useState([]);
-  const likedSong = document.getElementsByClassName("book")
+  const [likedbook, setlikedbook] = useState("");
+  
+
+  function handleLike(event) {
+    const title = event.target.parentElement.children[0].innerText;
+    const author = event.target.parentElement.children[1].innerText;
+    const description = event.target.parentElement.children[2].innerText;
+    const likedbook = {
+      title: title,
+      author: author,
+      description: description,
+    };
+
+
+    
+    console.log(likedbook);
+
+    setLikes([likedbook]);
+    console.log(likes);
+  }
 
   function handleChange(event) {
     const book = event.target.value;
@@ -31,11 +50,6 @@ function BookContainer() {
         setResult(data.data.items);
       });
   }
-  const likeBook = () => {
-    console.log(result);
-    setLikes(result);
-    console.log(likes);
-  };
 
   return (
     <div className="container">
@@ -54,9 +68,11 @@ function BookContainer() {
           Search
         </button>
       </form>
-
       {result.map((book) => (
         <div className="book">
+          <h4 className="bookTitle">{book.volumeInfo.title}</h4>
+          <h5 className="bookAuthor">{book.volumeInfo.authors}</h5>
+          <p className="bookDescription">{book.volumeInfo.description}</p>
           <button>
             <a
               target="_blank"
@@ -68,10 +84,14 @@ function BookContainer() {
               Click to View
             </a>
           </button>
-          <button className="likeBtn" onClick={likeBook}>
+          <button className="likeBtn" onClick={handleLike}>
             Click to Save
           </button>
-          <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.title} />
+          <img
+            className="bookImage"
+            src={book.volumeInfo.imageLinks.thumbnail}
+            alt={book.title}
+          />
         </div>
       ))}
     </div>
